@@ -3,11 +3,11 @@
 #define INABackRight 34
 #define INBBackRight 35
 #define PWMBackRight 3
-#define INABackLeft 36
-#define INBBackLeft 37
+#define INABackLeft 37
+#define INBBackLeft 36
 #define PWMBackLeft 6
-#define INAFrontRight 38
-#define INBFrontRight 39
+#define INAFrontRight 39
+#define INBFrontRight 38
 #define PWMFrontRight 4
 #define INAFrontLeft 40
 #define INBFrontLeft 41
@@ -44,3 +44,9 @@
 #define LightSensor13 A13
 #define LightSensor14 A14
 #define LightSensor15 A15
+
+//BNO055 pins
+// VIN to 5V
+// GND to GND
+// SDA to SDA 20
+// SCL to SCL 21

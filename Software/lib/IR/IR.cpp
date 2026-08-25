@@ -1,19 +1,26 @@
 #include <IR.h>
 float IR_Sensors::orbit(){
     float ball_direction_angle = ball_direction(); //Uses `ball_direction` to find where the ball is
+
+    Serial.print("Raw Ball Direction: "); Serial.println(ball_direction_angle);
+
     int movement_direction;
-    if (ball_direction_angle != 0){ //Checks if the ball isn't infront of the robot
+    if (ball_direction_angle == 0 || ball_direction_angle == 30 || ball_direction_angle == 330) {
+        movement_direction = ball_direction_angle;
+    } else {
+        //Checks if the ball isn't infront of the robot
         if (ball_direction_angle < 180){ //Checks if the ball is to the right of the robot
-            movement_direction = ball_direction_angle + 90; //Sets the movement direction 90 degrees more than the ball angle
+            movement_direction = ball_direction_angle + 45; //Sets the movement direction 90 degrees more than the ball angle
         }
         if (ball_direction_angle >= 180){ //Checks if the ball is to the left of the robot
-            movement_direction = ball_direction_angle - 90; //Sets the movement direction 90 degrees less than the ball angle
+            movement_direction = ball_direction_angle - 45; //Sets the movement direction 90 degrees less than the ball angle
         }
     }
-    else {
-        movement_direction = 0; //Sets the movement direction to 0
+    if (ball_direction_angle == -1) {
+        return -1;
+    } else {
+        return movement_direction;
     }
-    return movement_direction;
 }
 float IR_Sensors::ball_direction(){
     int IR_sensor_values[12] = {0}; //Sets each TSSP value to 0
@@ -30,8 +37,13 @@ float IR_Sensors::ball_direction(){
             maxVal_location = i; //If so, sets the new TSSP location to the max
         }
     }
-    float direction_angle = 360/12 * maxVal_location; //Finds what angle the highest value is at
-    return direction_angle;
+    float direction_angle;
+    
+    if (IR_sensor_maxVal == 0) {
+        return -1;
+    } else {
+        return 360/12 * maxVal_location; 
+    }
 }
 void IR_Sensors::init(){
     for (int i = 0; i < 12; i++){ //Iterates through each TSSP

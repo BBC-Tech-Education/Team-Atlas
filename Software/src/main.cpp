@@ -22,17 +22,21 @@ void setup(){
     avoidance.init();
 }
 void loop(){
+    float direction;
     compass.getEvent(&gyro); //Gets the compass value(degrees)
     float avoidance_direction = avoidance.Line_avoidance(); //Finds the avoidance direction
     float direction = 0; //Sets the general direction to 0
     if (avoidance_direction == 1000){ //Checks if the avoidance direction is 1000(no line)
         direction = IR.orbit(); //If so, sets the direction to whatever the orbit is
+        direction = -1;
     }
     else {
         direction = avoidance_direction; //If not, sets the direction to whatever the avoidance direction is
     }
-    float speed = 100; //Sets the general speed to 100
-    float correction = compass_correction.update(0, gyro.orientation.x > 180? gyro.orientation.x - 360: gyro.orientation.x); //Updates the correction value, checking if the value is above 180. Ff so, it subtracts 180 degrees from the value. If not, it leaves the value.
+    float speed = 0;
+    float correction = compass_correction.update(0.0f, gyro.orientation.x > 180.0f? gyro.orientation.x - 360.0f: gyro.orientation.x); //Updates the correction value, checking if the value is above 180. Ff so, it subtracts 180 degrees from the value. If not, it leaves the value.
     move.move(direction, speed, correction); //Moves based on the direction, speed and correction
     Serial.println(gyro.orientation.x); //Prints the current compass angle
+    Serial.print("Correction "); Serial.println(correction);
+    Serial.println(gyro.orientation.x);
 }

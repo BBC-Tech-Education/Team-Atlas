@@ -20,6 +20,8 @@ float Light_sensors::Line_avoidance(){
         avoidance_direction = 1000; //If not, doesn't move
     }
     return avoidance_direction;
+
+    Serial.print("Line direction is:"); Serial.println(line_direction_angle);
 }
 
 
@@ -31,7 +33,8 @@ float Light_sensors::Line_direction(){
     int average_number = 0; //Sets the average number to 0
     float average_sum = 0; //Sets the average sum to 0
     for (int i = 0; i < 16; i++){ //Iterates through each light sensor value
-        if (Light_sensor_values[i] > 0.8 * 1023){ //Checks if the light sensor is seeing white
+        if (Light_sensor_values[i] > 0.2 * 1023){ //Checks if the light sensor is seeing white
+            // Serial.println("Sees white");
             average_number += 1; //If so, adds one to the average number
             average_sum += 360/16 * i; //If so, adds the angle of the light sensor to the average sum
         }
