@@ -22,7 +22,6 @@ void setup(){
     avoidance.init();
 }
 void loop(){
-    float direction;
     compass.getEvent(&gyro); //Gets the compass value(degrees)
     float avoidance_direction = avoidance.Line_avoidance(); //Finds the avoidance direction
     float direction = 0; //Sets the general direction to 0
