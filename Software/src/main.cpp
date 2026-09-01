@@ -31,7 +31,7 @@ void loop(){
     else {
         direction = avoidance_direction; //If not, sets the direction to whatever the avoidance direction is
     }
-    float speed = 0;
+    float speed = 100;
     float correction = compass_correction.update(0.0f, gyro.orientation.x > 180.0f? gyro.orientation.x - 360.0f: gyro.orientation.x); //Updates the correction value, checking if the value is above 180. Ff so, it subtracts 180 degrees from the value. If not, it leaves the value.
     move.move(direction, speed, correction); //Moves based on the direction, speed and correction
     // Serial.print("Orientation ");

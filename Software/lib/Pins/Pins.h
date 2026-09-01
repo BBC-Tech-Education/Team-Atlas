@@ -6,8 +6,8 @@
 #define INABackLeft 37
 #define INBBackLeft 36
 #define PWMBackLeft 6
-#define INAFrontRight 39
-#define INBFrontRight 38
+#define INAFrontRight 38
+#define INBFrontRight 39
 #define PWMFrontRight 4
 #define INAFrontLeft 40
 #define INBFrontLeft 41

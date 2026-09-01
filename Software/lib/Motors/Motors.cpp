@@ -17,6 +17,14 @@ void motors::move(int direction, int speed, int correction){
         for (int i = 0; i < 4; i++){ //Iterates through each motor value
             motor_speeds[i] *= ratio; //Scales each motor value down
         }}
+    float AB_min = (min(abs(motor_speeds[0]), abs(motor_speeds[1])));
+    float CD_min = (min(abs(motor_speeds[2]), abs(motor_speeds[3])));
+    float min = (min(AB_min, CD_min)); //Finds the highest speed value
+    if (min < 115){ //Checks if the highest speed value is higher than the limit
+        float ratio = 115/min; //Finds the ratio of change
+        for (int i = 0; i < 4; i++){ //Iterates through each motor value
+            motor_speeds[i] *= ratio; //Scales each motor value down
+        }}
     frontleft.movement(motor_speeds[0]);
     frontright.movement(motor_speeds[1]);
     backright.movement(motor_speeds[2]);
