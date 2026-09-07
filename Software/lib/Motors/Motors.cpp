@@ -8,7 +8,10 @@ frontleft.init(INAFrontLeft, INBFrontLeft, PWMFrontLeft);
 void motors::move(int direction, int speed, int correction){
     float motor_speeds[4] = {0}; //Sets each motor speed to 0
     for (int i = 0; i < 4; i++){ //Iterates through each motor speed
-    motor_speeds[i] = speed * cos((M_PI/180)*(45 + 90 * i - direction)) + correction;} //Sets the current motor speed to 
+        if (direction == -1) {
+            motor_speeds[i] = correction;
+        } else {
+            motor_speeds[i] = speed * cos((M_PI/180)*(45 + 90 * i - direction)) + correction;}} //Sets the current motor speed to 
     float AB_max = (max(abs(motor_speeds[0]), abs(motor_speeds[1])));
     float CD_max = (max(abs(motor_speeds[2]), abs(motor_speeds[3])));
     float max = (max(AB_max, CD_max)); //Finds the highest speed value
@@ -21,13 +24,16 @@ void motors::move(int direction, int speed, int correction){
     float AB_min = (min(abs(motor_speeds[0]), abs(motor_speeds[1])));
     float CD_min = (min(abs(motor_speeds[2]), abs(motor_speeds[3])));
     float min = (min(AB_min, CD_min)); //Finds the highest speed value
-    if (min < 115 and min > 50){ //Checks if the highest speed value is higher than the limit
-        float ratio = 115/min; //Finds the ratio of change
-        for (int i = 0; i < 4; i++){ //Iterates through each motor value
-            Serial.print(motor_speeds[i]);
-            Serial.print(" ");
-            motor_speeds[i] *= ratio; //Scales each motor value down
-        }} 
+    if (min < 115 and min > 30){
+        float ratio = 115/min;
+        for (int i = 0; i < 4; i++){
+            motor_speeds[i] *= ratio;
+        }}
+
+    for (int i = 0; i < 4; i++){
+        Serial.print(motor_speeds[i]);
+        Serial.print(" ");
+    }
         
     Serial.println();
     frontleft.movement(motor_speeds[0]);
