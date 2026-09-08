@@ -46,7 +46,9 @@ float IR_Sensors::ball_direction(){
     
     if (IR_sensor_maxVal == 0) {
         return -1;
+        // Serial.print(-1);
     } else {
+        // Serial.println(maxVal_location);
         return 360/12 * maxVal_location; 
     }
 }

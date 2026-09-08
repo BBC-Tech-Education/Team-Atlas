@@ -30,12 +30,12 @@ void motors::move(int direction, int speed, int correction){
             motor_speeds[i] *= ratio;
         }}
 
-    for (int i = 0; i < 4; i++){
-        Serial.print(motor_speeds[i]);
-        Serial.print(" ");
-    }
+    // for (int i = 0; i < 4; i++){
+        // Serial.print(motor_speeds[i]);
+    //     Serial.print(" ");
+    // }
         
-    Serial.println();
+    // Serial.println();
     frontleft.movement(motor_speeds[0]);
     frontright.movement(motor_speeds[1]);
     backright.movement(motor_speeds[2]);

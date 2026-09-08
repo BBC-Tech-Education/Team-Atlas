@@ -22,8 +22,8 @@ void setup(){
     // avoidance.init();
 }
 void loop(){
-    float direction;
     compass.getEvent(&gyro); //Gets the compass value(degrees)
+    float direction;
     // float avoidance_direction = avoidance.Line_avoidance(); //Finds the avoidance direction
     // if (avoidance_direction == 1000){ //Checks if the avoidance direction is 1000(no line)
         direction = IR.orbit(); //If so, sets the direction to whatever the orbit is
@@ -38,5 +38,5 @@ void loop(){
     // Serial.println(gyro.orientation.x); //Prints the current compass angle
     // Serial.print("Correction ");
     // Serial.println(correction);
-    // Serial.println(direction);
+    Serial.println(direction);
 }
