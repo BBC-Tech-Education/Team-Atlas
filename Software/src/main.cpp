@@ -5,24 +5,50 @@
 #include <Common.h>
 #include <IR.h>
 #include <LightSensors.h>
-motors move;
-Adafruit_BNO055 compass;
-sensors_event_t gyro;
-PID compass_correction(P, I, D, MAX);
+
+
+Motors move;
+Adafruit_BNO055 bno;
+PID rotationPID(IMU_KP, IMU_KI, IMU_KD, IMU_MAX);
 IR_Sensors IR;
 Light_sensors avoidance;
-void setup(){
+
+sensors_event_t event;
+
+
+
+void setup()
+{
     Serial.begin(9600);
-    move.init();
-    while (! compass.begin()){ //While the compass hasn't started
-        Serial.println("Compass isn't working"); //Prints "Compass isn't working"
+    
+    delay(50);
+    while (!bno.begin()) { // While the compass hasn't started
+        Serial.println("Compass isn't working"); // Prints "Compass isn't working"
+        delay(1000);
     }
-    compass.setExtCrystalUse(true);
+
+    move.init();
     IR.init();
     // avoidance.init();
 }
+
+
+
+
 void loop(){
-    compass.getEvent(&gyro); //Gets the compass value(degrees)
+    bno.getEvent(&event);
+    float heading = event.orientation.x;
+
+    Serial.print("Raw Heading: ");
+    Serial.print(heading);
+    Serial.print("\t");
+
+    heading = heading > 180.0f ? heading - 360.0f : heading;
+
+    Serial.print("Adjusted heading: ");
+    Serial.print(heading);
+    Serial.print("\t");
+
     float direction;
     // float avoidance_direction = avoidance.Line_avoidance(); //Finds the avoidance direction
     // if (avoidance_direction == 1000){ //Checks if the avoidance direction is 1000(no line)
@@ -31,12 +57,16 @@ void loop(){
     // else {
         // direction = avoidance_direction; //If not, sets the direction to whatever the avoidance direction is
     // }
-    float speed = 100;
-    float correction = compass_correction.update(0.0f, gyro.orientation.x > 180.0f? gyro.orientation.x - 360.0f: gyro.orientation.x); //Updates the correction value, checking if the value is above 180. Ff so, it subtracts 180 degrees from the value. If not, it leaves the value.
+
+    float speed = 0.0f;
+
+    float correction = -rotationPID.update(heading, 0.0f);
+    
     move.move(direction, speed, correction); //Moves based on the direction, speed and correction
     // Serial.print("Orientation ");
     // Serial.println(gyro.orientation.x); //Prints the current compass angle
     // Serial.print("Correction ");
-    // Serial.println(correction);
-    Serial.println(direction);
+    Serial.print("Correction: ");
+    Serial.println(correction);
+    // Serial.println(direction);
 }

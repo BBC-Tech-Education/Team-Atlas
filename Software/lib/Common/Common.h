@@ -2,9 +2,9 @@
 #define COMMON_H
 #include <Arduino.h>
 
-#define P 2.0 //Determines the P value and sets the speed proportionally to how far off the robot is from 0 degrees
-#define I 0.0 //Determines the I value and prevents systematic error
-#define D 0.38//Determines the D value and prevents overshooting
-#define MAX 255 //Sets the max speed
+#define IMU_KP 1.0f  // Determines the P value and sets the speed proportionally to how far off the robot is from 0 degrees
+#define IMU_KI 0.0f  // Determines the I value and prevents systematic error
+#define IMU_KD 0.0f // Determines the D value and prevents overshooting
+#define IMU_MAX 255 // Sets the max speed
 
 #endif

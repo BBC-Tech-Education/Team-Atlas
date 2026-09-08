@@ -1,34 +1,41 @@
-#include <Motors.h>
-void motors::init(){
-backright.init(INABackRight, INBBackRight, PWMBackRight);
-backleft.init(INABackLeft, INBBackLeft, PWMBackLeft);
-frontright.init(INAFrontRight, INBFrontRight, PWMFrontRight);
-frontleft.init(INAFrontLeft, INBFrontLeft, PWMFrontLeft);
-}
-void motors::move(int direction, int speed, int correction){
-    float motor_speeds[4] = {0}; //Sets each motor speed to 0
-    for (int i = 0; i < 4; i++){ //Iterates through each motor speed
-        if (direction == -1) {
-            motor_speeds[i] = correction;
-        } else {
-            motor_speeds[i] = speed * cos((M_PI/180)*(45 + 90 * i - direction)) + correction;}} //Sets the current motor speed to 
-    float AB_max = (max(abs(motor_speeds[0]), abs(motor_speeds[1])));
-    float CD_max = (max(abs(motor_speeds[2]), abs(motor_speeds[3])));
-    float max = (max(AB_max, CD_max)); //Finds the highest speed value
-    if (max > 255){ //Checks if the highest speed value is higher than the limit
-        float ratio = 255/max; //Finds the ratio of change
-        for (int i = 0; i < 4; i++){ //Iterates through each motor value
-            motor_speeds[i] *= ratio; //Scales each motor value down
-        }}
+#include "Motors.h"
 
-    float AB_min = (min(abs(motor_speeds[0]), abs(motor_speeds[1])));
-    float CD_min = (min(abs(motor_speeds[2]), abs(motor_speeds[3])));
-    float min = (min(AB_min, CD_min)); //Finds the highest speed value
-    if (min < 115 and min > 30){
-        float ratio = 115/min;
+
+void Motors::init()
+{
+    br.init(BR_INA, BR_INB, BR_PWM);
+    bl.init(BL_INA, BL_INB, BL_PWM);
+    fr.init(FR_INA, FR_INB, FR_PWM);
+    fl.init(FL_INA, FL_INB, FL_PWM);
+}
+
+
+void Motors::move(float direction, float speed, float correction)
+{
+    float motor_speeds[4] = {0.0f};
+
+    for (int i = 0; i < 4; i++) {
+        motor_speeds[i] = speed * cosf(DEG_TO_RAD * (45.0f + 90.0f * i - direction)) + correction;
+    }
+
+    float max = max(max(max(abs(motor_speeds[0]), abs(motor_speeds[1])), abs(motor_speeds[2])), abs(motor_speeds[3]));
+
+    if (max > 255.0f) { // Checks if the highest speed value is higher than the limit
+        float ratio = 255.0f / max;
+
         for (int i = 0; i < 4; i++){
+            motor_speeds[i] *= ratio; // Scales each motor value down
+        }
+    }
+
+    float min = min(min(min(abs(motor_speeds[0]), abs(motor_speeds[1])), abs(motor_speeds[2])), abs(motor_speeds[3]));
+
+    if (min < 115.0f && min > 30.0f) {
+        float ratio = 115.0f / min;
+        for (int i = 0; i < 4; i++) {
             motor_speeds[i] *= ratio;
-        }}
+        }
+    }
 
     // for (int i = 0; i < 4; i++){
         // Serial.print(motor_speeds[i]);
@@ -36,8 +43,9 @@ void motors::move(int direction, int speed, int correction){
     // }
         
     // Serial.println();
-    frontleft.movement(motor_speeds[0]);
-    frontright.movement(motor_speeds[1]);
-    backright.movement(motor_speeds[2]);
-    backleft.movement(motor_speeds[3]);
+
+    fl.movement((int16_t)motor_speeds[0]);
+    fr.movement((int16_t)motor_speeds[1]);
+    br.movement((int16_t)motor_speeds[2]);
+    bl.movement((int16_t)motor_speeds[3]);
 }

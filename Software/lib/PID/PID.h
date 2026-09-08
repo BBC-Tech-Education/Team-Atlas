@@ -1,18 +1,23 @@
 #ifndef PID_H
 #define PID_H
+
 #include <Arduino.h>
 
-class PID{
+class PID {
+
 public:
-    PID(float p, float i, float d, float max);
-    float update(float target, float current_degrees);
+    PID(float p, float i, float d, float m);
+    float update(float input, float setpoint);
+
 private:
-    float p2;
-    float i2;
-    float d2;
-    float max2;
-    unsigned long last_run;
-    float total_integral;
-    float last_input;
+    float kp;
+    float ki;
+    float kd;
+    float max;
+    unsigned long last_time;
+
+    float integral;
+    float last_error;
 };
-#endif
+
+#endif // PID_H

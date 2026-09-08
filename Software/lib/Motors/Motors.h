@@ -1,15 +1,22 @@
 #ifndef MOTORS_H
 #define MOTORS_H
-#include <Arduino.h>
-#include <MotorController.h>
+
+
+#include <Motor.h>
 #include <Pins.h>
-#include <math.h>
-class motors{public: motors(){};
-    void move(int direction, int speed, int correction);
+
+
+class Motors
+{
+public:
+    Motors() {}
     void init();
-    private: 
-    MotorController backright;
-    MotorController backleft;
-    MotorController frontright;
-    MotorController frontleft;};
+    void move(float direction, float speed, float correction);
+
+private: 
+    Motor br;
+    Motor bl;
+    Motor fr;
+    Motor fl;
+};
 #endif

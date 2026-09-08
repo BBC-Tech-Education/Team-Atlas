@@ -1,17 +1,19 @@
 #include <Arduino.h>
+
+
 //Motor pins
-#define INABackRight 34
-#define INBBackRight 35
-#define PWMBackRight 3
-#define INABackLeft 37
-#define INBBackLeft 36
-#define PWMBackLeft 6
-#define INAFrontRight 38
-#define INBFrontRight 39
-#define PWMFrontRight 4
-#define INAFrontLeft 40
-#define INBFrontLeft 41
-#define PWMFrontLeft 5
+#define BR_INA 34
+#define BR_INB 35
+#define BR_PWM 3
+#define BL_INA 37
+#define BL_INB 36
+#define BL_PWM 6
+#define FR_INA 38
+#define FR_INB 39
+#define FR_PWM 4
+#define FL_INA 40
+#define FL_INB 41
+#define FL_PWM 5
 
 //IR sensor pins
 #define IR0 22
