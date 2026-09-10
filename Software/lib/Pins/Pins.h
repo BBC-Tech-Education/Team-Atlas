@@ -2,18 +2,19 @@
 
 
 //Motor pins
-#define BR_INA 34
-#define BR_INB 35
-#define BR_PWM 3
-#define BL_INA 37
-#define BL_INB 36
-#define BL_PWM 6
-#define FR_INA 38
-#define FR_INB 39
-#define FR_PWM 4
-#define FL_INA 40
-#define FL_INB 41
-#define FL_PWM 5
+#define BR_INA 6
+#define BR_INB 7
+#define BR_PWM 50
+#define BL_INA 13
+#define BL_INB 12
+#define BL_PWM 53
+#define FR_INA 9
+#define FR_INB 8
+#define FR_PWM 51
+#define FL_INA 11
+#define FL_INB 10
+#define FL_PWM 52
+
 
 //IR sensor pins
 #define IR0 22
@@ -28,6 +29,7 @@
 #define IR9 31
 #define IR10 32
 #define IR11 33
+
 
 //Light sensor pins
 #define LightSensor0 A0
@@ -46,6 +48,7 @@
 #define LightSensor13 A13
 #define LightSensor14 A14
 #define LightSensor15 A15
+
 
 //BNO055 pins
 // VIN to 5V
