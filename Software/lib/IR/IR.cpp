@@ -3,10 +3,9 @@ float IR_Sensors::orbit(){
     float ball_direction_angle = ball_direction(); //Uses `ball_direction` to find where the ball is
 
     int movement_direction;
-    if (ball_direction_angle == 0 || ball_direction_angle == 30 || ball_direction_angle == 330) {
-        movement_direction = ball_direction_angle;
+    if (ball_direction_angle == 0 || ball_direction_angle == 30 || ball_direction_angle == 330) { // If the ball is roughly in front of the robot
+        movement_direction = ball_direction_angle; // If so, just move at the ball
     } else {
-        //Checks if the ball isn't infront of the robot
         if (ball_direction_angle < 180){ //Checks if the ball is to the right of the robot
             movement_direction = ball_direction_angle + 45; //Sets the movement direction 90 degrees more than the ball angle
         }
@@ -24,11 +23,7 @@ float IR_Sensors::ball_direction(){
     int IR_sensor_values[12] = {0}; //Sets each TSSP value to 0
     for (int i = 0; i < 255; i++){ //Repeats 255 times
         for (int a = 0; a < 12; a++){ //Repeats 12 times
-                if (a == 2) {
-                    float IR_sensor_value[a] = {0};
-                } else {
                 IR_sensor_values[a] += 1 - digitalRead(IR_pins[a]); //Adds 1 - the TSSPs value
-                }
         }
     }
     int IR_sensor_maxVal = IR_sensor_values[0]; //Assumes that the front TSSP has the highest value

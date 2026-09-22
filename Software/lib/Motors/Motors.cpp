@@ -15,25 +15,26 @@ void Motors::move(float direction, float speed, float correction)
     float motor_speeds[4] = {0.0f};
 
     for (int i = 0; i < 4; i++) {
-        motor_speeds[i] = speed * cosf(DEG_TO_RAD * (45.0f + 90.0f * i - direction)) + correction;
+        motor_speeds[i] = speed * cosf(DEG_TO_RAD * (45.0f + 90.0f * i - direction)) + correction; // Sets the motor speeds based on the direction, correction and speed
     }
 
-    float max = max(max(max(abs(motor_speeds[0]), abs(motor_speeds[1])), abs(motor_speeds[2])), abs(motor_speeds[3]));
+    float max = max(max(max(abs(motor_speeds[0]), abs(motor_speeds[1])), abs(motor_speeds[2])), abs(motor_speeds[3])); // Finds the maximum speed
 
     if (max > 255.0f) { // Checks if the highest speed value is higher than the limit
-        float ratio = 255.0f / max;
+        float ratio = 255.0f / max; // Sets the ratio to change the values
 
         for (int i = 0; i < 4; i++){
             motor_speeds[i] *= ratio; // Scales each motor value down
         }
     }
 
-    float min = min(min(min(abs(motor_speeds[0]), abs(motor_speeds[1])), abs(motor_speeds[2])), abs(motor_speeds[3]));
+    float min = min(min(min(abs(motor_speeds[0]), abs(motor_speeds[1])), abs(motor_speeds[2])), abs(motor_speeds[3])); // Finds the minimum speed
 
-    if (min < 115.0f && min > 30.0f) {
-        float ratio = 115.0f / min;
+    if (min < 115.0f && min > 30.0f) { // Checks if the lowest speed is between 115 and 30
+        float ratio = 115.0f / min; // Sets the ratio to change the values
+
         for (int i = 0; i < 4; i++) {
-            motor_speeds[i] *= ratio;
+            motor_speeds[i] *= ratio; //Scales each motor value down
         }
     }
 

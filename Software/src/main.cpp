@@ -37,32 +37,34 @@ void setup()
 
 void loop(){
     bno.getEvent(&event);
-    float heading = event.orientation.x;
+    float heading = event.orientation.x; // Sets the current orientation to 'heading'
 
     Serial.print("Raw Heading: ");
     Serial.print(heading);
     Serial.print("\t");
 
-    heading = heading > 180.0f ? heading - 360.0f : heading;
+    heading = heading > 180.0f ? heading - 360.0f : heading; // Checks if heading is over or under 180, changing so that rather than measuring from 0 - 360 degrees, it's -180 - 180 degrees
 
     Serial.print("Adjusted heading: ");
     Serial.print(heading);
     Serial.print("\t");
 
     float direction;
-    // float avoidance_direction = avoidance.Line_avoidance(); //Finds the avoidance direction
-    // if (avoidance_direction == 1000){ //Checks if the avoidance direction is 1000(no line)
+    float avoidance_direction = avoidance.Line_avoidance(); //Finds the avoidance direction
+    if (avoidance_direction == 1000){ //Checks if the avoidance direction is 1000(no line)
         direction = IR.orbit(); //If so, sets the direction to whatever the orbit is
-    // }
-    // else {
-        // direction = avoidance_direction; //If not, sets the direction to whatever the avoidance direction is
-    // }
+    }
+    else {
+        direction = avoidance_direction; //If not, sets the direction to whatever the avoidance direction is
+    }
 
     float speed = 0.0f;
 
     float correction = -rotationPID.update(heading, 0.0f);
     
     move.move(direction, speed, correction); //Moves based on the direction, speed and correction
+    
+    
     // Serial.print("Orientation ");
     // Serial.println(gyro.orientation.x); //Prints the current compass angle
     // Serial.print("Correction ");
