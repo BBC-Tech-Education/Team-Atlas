@@ -29,7 +29,7 @@ void setup()
 
     move.init();
     IR.init();
-    // avoidance.init();
+    avoidance.init();
 }
 
 
@@ -49,6 +49,7 @@ void loop(){
     // Serial.print(heading);
     // Serial.print("\t");
 
+    
     float direction;
     // float avoidance_direction = avoidance.Line_avoidance(); //Finds the avoidance direction
     // if (avoidance_direction == 1000){ //Checks if the avoidance direction is 1000(no line)
@@ -57,6 +58,7 @@ void loop(){
     // else {
         // direction = avoidance_direction; //If not, sets the direction to whatever the avoidance direction is
     // }
+
 
     float speed = 100.0f;
 
