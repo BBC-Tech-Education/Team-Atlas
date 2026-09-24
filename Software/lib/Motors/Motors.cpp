@@ -3,10 +3,10 @@
 
 void Motors::init()
 {
-    br.init(BR_INA, BR_INB, BR_PWM);
-    bl.init(BL_INA, BL_INB, BL_PWM);
-    fr.init(FR_INA, FR_INB, FR_PWM);
-    fl.init(FL_INA, FL_INB, FL_PWM);
+    br.init(BR_INA, BR_INB, BR_EN);
+    bl.init(BL_INA, BL_INB, BL_EN);
+    fr.init(FR_INA, FR_INB, FR_EN);
+    fl.init(FL_INA, FL_INB, FL_EN);
 }
 
 
@@ -38,12 +38,12 @@ void Motors::move(float direction, float speed, float correction)
         }
     }
 
-    // for (int i = 0; i < 4; i++){
-        // Serial.print(motor_speeds[i]);
-    //     Serial.print(" ");
-    // }
+    for (int i = 0; i < 4; i++){
+        Serial.print(motor_speeds[i]);
+        Serial.print(" ");
+    }
         
-    // Serial.println();
+    Serial.println();
 
     fl.movement((int16_t)motor_speeds[0]);
     fr.movement((int16_t)motor_speeds[1]);

@@ -9,13 +9,13 @@ class Motor {
 
 public:
     Motor() {}
-    void init(uint8_t a, uint8_t b, uint8_t p);
+    void init(uint8_t a, uint8_t b, uint8_t e);
     void movement(int16_t speed);
    
 private: 
     uint8_t ina;
     uint8_t inb;
-    uint8_t pwm;
+    uint8_t en;
 };
 
 
