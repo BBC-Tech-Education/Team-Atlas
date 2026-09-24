@@ -20,10 +20,10 @@ float IR_Sensors::orbit(){
     }
 }
 float IR_Sensors::ball_direction(){
-    int IR_sensor_values[12] = {0}; //Sets each TSSP value to 0
-    for (int i = 0; i < 255; i++){ //Repeats 255 times
-        for (int a = 0; a < 12; a++){ //Repeats 12 times
-                IR_sensor_values[a] += 1 - digitalRead(IR_pins[a]); //Adds 1 - the TSSPs value
+    uint8_t IR_sensor_values[12] = {0}; //Sets each TSSP value to 0
+    for (uint8_t i = 0; i < 100; i++){ //Repeats 255 times
+        for (uint8_t j = 0; j < 12; j++){ //Repeats 12 times
+            IR_sensor_values[j] += 1 - digitalRead(IR_pins[j]); //Adds 1 - the TSSPs value
         }
     }
     int IR_sensor_maxVal = IR_sensor_values[0]; //Assumes that the front TSSP has the highest value
