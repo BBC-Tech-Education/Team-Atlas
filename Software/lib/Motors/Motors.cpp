@@ -40,7 +40,7 @@ void Motors::move(float direction, float speed, float correction)
 
     for (int i = 0; i < 4; i++){
         // Serial.print(motor_speeds[i]);
-        // Serial.print(" ");
+        Serial.print(" ");
     }
         
     Serial.println();

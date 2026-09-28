@@ -4,16 +4,16 @@
 //Motor pins
 #define BR_INA 6
 #define BR_INB 7
-#define BR_EN 50
+#define BR_EN 5
 #define BL_INA 11
 #define BL_INB 12
-#define BL_EN 53
-#define FR_INA 2
-#define FR_INB 3
-#define FR_EN 51
-#define FL_INA 9
-#define FL_INB 10
-#define FL_EN 52
+#define BL_EN 13
+#define FR_INA 3
+#define FR_INB 2
+#define FR_EN 4
+#define FL_INA 10
+#define FL_INB 9
+#define FL_EN 8
 
 
 //IR sensor pins

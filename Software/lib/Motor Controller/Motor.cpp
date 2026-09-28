@@ -9,7 +9,7 @@ void Motor::init(uint8_t a, uint8_t b , uint8_t e)
     pinMode(ina, OUTPUT);
     pinMode(inb, OUTPUT);
     pinMode(en, OUTPUT);
-    digitalWrite(en, HIGH);
+    analogWrite(en, 100);
 }
 
 

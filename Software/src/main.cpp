@@ -24,12 +24,27 @@ void setup()
     
     delay(50);
 
-    pinMode(42, OUTPUT); digitalWrite(42, LOW);
+    pinMode(4, OUTPUT); digitalWrite(4, LOW);
+    pinMode(6, OUTPUT); digitalWrite(6, LOW);
+    pinMode(7, OUTPUT); digitalWrite(7, LOW);
+
+    pinMode(8, OUTPUT); digitalWrite(8, LOW);
+    pinMode(9, OUTPUT); digitalWrite(9, LOW);
+    pinMode(10, OUTPUT); digitalWrite(10, LOW);
+
+    pinMode(5, OUTPUT); digitalWrite(5, LOW);
+    pinMode(3, OUTPUT); digitalWrite(3, LOW);
+    pinMode(2, OUTPUT); digitalWrite(2, LOW);
+
+    pinMode(13, OUTPUT); digitalWrite(13, LOW);
     pinMode(11, OUTPUT); digitalWrite(11, LOW);
     pinMode(12, OUTPUT); digitalWrite(12, LOW);
     
     delay(20);
-    digitalWrite(42, HIGH);
+    analogWrite(4, 100);
+    analogWrite(8, 100);
+    analogWrite(5, 100);
+    analogWrite(13, 100);
 
 
     // while (!bno.begin()) { // While the compass hasn't started
@@ -48,27 +63,58 @@ void setup()
 void loop()
 {
     
-    static uint32_t lastDrive = 0;
-    static uint32_t lastDirection = 0;
-    static uint8_t driveClockwise = 0;
+digitalWrite(7, HIGH);
+digitalWrite(6, LOW);
+analogWrite(4, 100);
 
-    uint32_t now = millis();
+digitalWrite(10, HIGH);
+digitalWrite(9, LOW);
+analogWrite(8, 100);
 
-    if ((now - lastDrive) >= 20) {
-        if ((now - lastDirection) >= 1000) {
-            driveClockwise = 1 - driveClockwise;
+digitalWrite(11, HIGH);
+digitalWrite(12, LOW);
+analogWrite(13, 100);
 
-            if (driveClockwise) {
-                analogWrite(11, 200);
-                digitalWrite(12, LOW);
-            } else {
-                analogWrite(12, 200);
-                digitalWrite(11, LOW);
-            }
-            lastDirection = millis();
-        }
-        lastDrive = millis();
-    }
+digitalWrite(3, HIGH);
+digitalWrite(2, LOW);
+analogWrite(5, 100);
+
+
+
+    // static uint32_t lastDrive = 0;
+    // static uint32_t lastDirection = 0;
+    // static uint8_t driveClockwise = 0;
+
+    // uint32_t now = millis();
+
+    // if ((now - lastDrive) >= 20) {
+    //     if ((now - lastDirection) >= 1000) {
+    //         driveClockwise = 1 - driveClockwise;
+
+    //         if (driveClockwise) {
+    //             digitalWrite(7, HIGH);
+    //             digitalWrite(6, LOW);
+    //             analogWrite(4, 100);
+                
+    //             digitalWrite(10, HIGH);
+    //             digitalWrite(9, LOW);
+    //             analogWrite(8, 100);
+
+
+    //         } else {
+    //             digitalWrite(6, HIGH);
+    //             digitalWrite(7, LOW);
+    //             analogWrite(4, 100);
+
+    //             digitalWrite(9, HIGH);
+    //             digitalWrite(10, LOW);
+    //             analogWrite(8, 100);
+
+    //         }
+    //         lastDirection = millis();
+    //     }
+    //     lastDrive = millis();
+    // }
 
 
 
@@ -97,17 +143,11 @@ void loop()
     // }
 
 
-    // float speed = 100.0f;
+    // float speed = 0.0f;
+
+    // direction = -1;
 
     // float correction = -rotationPID.update(heading, 0.0f);
     
     // move.move(direction, speed, correction); //Moves based on the direction, speed and correction
-    
-    
-    // Serial.print("Orientation ");
-    // Serial.println(gyro.orientation.x); //Prints the current compass angle
-    // Serial.print("Correction ");
-    // Serial.print("Correction: ");
-    // Serial.println(correction);
-    // Serial.println(direction);
 }
