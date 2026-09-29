@@ -1,19 +1,27 @@
 #ifndef LIGHTSENSORS_H
 #define LIGHTSENSORS_H
+
+
 #include <Arduino.h>
 #include <Pins.h>
 
-class Light_sensors {
-    public:
-    Light_sensors(){};
+
+#define LS_NUM 16
+#define LS_BUFFER 200
+
+class LightSensors {
+public:
+    LightSensors() {}
     void init();
-    float Line_avoidance();
-    float Light_sensor_intensity();
+    void update();
 
-    private:
-    float Line_direction();
-    int LightSensor_pins[16] = {LightSensor0, LightSensor1, LightSensor2, LightSensor3, LightSensor4, LightSensor5, LightSensor6, LightSensor7, LightSensor8, LightSensor9, LightSensor10, LightSensor11, LightSensor12, LightSensor13, LightSensor14, LightSensor15}; //Adds each light sensor pin
+private:
+    void read();
+    void calibrate();
 
+    uint8_t pins[LS_NUM] = {LS_0, LS_1, LS_2, LS_3, LS_4, LS_5, LS_6, LS_7, LS_8, LS_9, LS_10, LS_11, LS_12, LS_13, LS_14, LS_15};
+    uint16_t value[LS_NUM] = {0};
+    uint16_t green[LS_NUM] = {0};
 };
 
 #endif

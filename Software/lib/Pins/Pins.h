@@ -11,8 +11,8 @@
 #define FR_INA 3
 #define FR_INB 2
 #define FR_EN 4
-#define FL_INA 10
-#define FL_INB 9
+#define FL_INA 9
+#define FL_INB 10
 #define FL_EN 8
 
 
@@ -31,23 +31,23 @@
 #define IR11 33
 
 
-//Light sensor pins
-#define LightSensor0 A0
-#define LightSensor1 A1
-#define LightSensor2 A2
-#define LightSensor3 A3
-#define LightSensor4 A4
-#define LightSensor5 A5
-#define LightSensor6 A6
-#define LightSensor7 A7
-#define LightSensor8 A8
-#define LightSensor9 A9
-#define LightSensor10 A10
-#define LightSensor11 A11
-#define LightSensor12 A12
-#define LightSensor13 A13
-#define LightSensor14 A14
-#define LightSensor15 A15
+// Light sensor pins
+#define LS_0 A0
+#define LS_1 A1
+#define LS_2 A2
+#define LS_3 A3
+#define LS_4 A4
+#define LS_5 A5
+#define LS_6 A6
+#define LS_7 A7
+#define LS_8 A8
+#define LS_9 A9
+#define LS_10 A10
+#define LS_11 A11
+#define LS_12 A12
+#define LS_13 A13
+#define LS_14 A14
+#define LS_15 A15
 
 
 //BNO055 pins

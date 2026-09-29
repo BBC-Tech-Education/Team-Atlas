@@ -25,18 +25,19 @@ float IR_Sensors::ball_direction(){
         for (uint8_t j = 0; j < 12; j++){ //Repeats 12 times
             IR_sensor_values[j] += 1 - digitalRead(IR_pins[j]); //Adds 1 - the TSSPs value
         }
+        IR_sensor_values[8] = 0;
     }
     int IR_sensor_maxVal = IR_sensor_values[0]; //Assumes that the front TSSP has the highest value
     int maxVal_location = 0; //Assumes that the front TSSP has the highest value
     for (int i = 0; i < 12; i++){ //Iterates through each TSSP
-        Serial.print(IR_sensor_values[i]);
-        Serial.print(" ");
+        // Serial.print(IR_sensor_values[i]);
+        // Serial.print(" ");
         if (IR_sensor_values[i] > IR_sensor_maxVal) { //Checks if the current TSSP value is higher
             IR_sensor_maxVal = IR_sensor_values[i]; //If so, sets the new TSSP value to the max
             maxVal_location = i; //If so, sets the new TSSP location to the max
         }
     }
-    Serial.println();
+    // Serial.println();
     float direction_angle;
     
     if (IR_sensor_maxVal == 0) {
