@@ -90,7 +90,7 @@ analogWrite(5, 100);
     // if ((now - lastDrive) >= 20) {
     //     if ((now - lastDirection) >= 1000) {
     //         driveClockwise = 1 - driveClockwise;
-
+ 
     //         if (driveClockwise) {
     //             digitalWrite(7, HIGH);
     //             digitalWrite(6, LOW);
