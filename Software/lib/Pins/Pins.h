@@ -42,11 +42,11 @@
 #define LightSensor7 A7
 #define LightSensor8 A8
 #define LightSensor9 A9
-#define LightSensor10 A11
-#define LightSensor11 A12
-#define LightSensor12 A13
-#define LightSensor13 A14
-#define LightSensor14 A10
+#define LightSensor10 A10
+#define LightSensor11 A11
+#define LightSensor12 A12
+#define LightSensor13 A13
+#define LightSensor14 A14
 #define LightSensor15 A15
 
 
