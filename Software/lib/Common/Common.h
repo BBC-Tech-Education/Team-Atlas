@@ -7,4 +7,6 @@
 #define IMU_KD 0.0f // Determines the D value and prevents overshooting
 #define IMU_MAX 255 // Sets the max speed
 
+#define MOVE_SPEED 255.0f
+
 #endif
