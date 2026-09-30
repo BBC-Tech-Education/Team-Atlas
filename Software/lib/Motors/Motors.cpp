@@ -30,7 +30,7 @@ void Motors::move(float direction, float speed, float correction)
 
     float min = min(min(min(abs(motor_speeds[0]), abs(motor_speeds[1])), abs(motor_speeds[2])), abs(motor_speeds[3])); // Finds the minimum speed
 
-    if (min < 60.0f && min > 30.0f) { // Checks if the lowest speed is between 115 and 30
+    if (min < 100.0f && min > 30.0f) { // Checks if the lowest speed is between 115 and 30
         float ratio = 60.0f / min; // Sets the ratio to change the values
 
         for (int i = 0; i < 4; i++) {
