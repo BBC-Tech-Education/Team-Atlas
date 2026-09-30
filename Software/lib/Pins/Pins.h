@@ -50,7 +50,7 @@
 #define LS_15 A15
 
 
-// BNO055 pins
+//BNO055 pins
 // VIN to 5V
 // GND to GND
 // SDA to SDA 20
