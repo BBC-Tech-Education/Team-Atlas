@@ -33,7 +33,7 @@ void setup()
 
     motors.init();
     ir.init();
-    // avoidance.init();
+    avoidance.init();
 }
 
 
@@ -49,17 +49,21 @@ void loop()
 
     ir.update();
 
-    // avoidance.update();
+    avoidance.update();
 
+    float direction;
 
+    if (avoidance.avoid() == 1000){
+        direction = orbit(ir.get_direction(), ir.get_strength());
+    } else {
+        direction = avoidance.avoid();
+    }
 
-    float direction = orbit(ir.get_direction(), ir.get_strength());
 
     Serial.print("IR VALUES - dir: "); Serial.print(ir.get_direction());
     Serial.print("\tstr: "); Serial.println(ir.get_strength());
 
     
-
 
 
     float speed;
@@ -80,7 +84,6 @@ void loop()
 
 float orbit(float direction, float strength)
 {
-    float movement_direction;
     if (direction <= 30.0f || direction >= 330.0f) { // If the ball is roughly in front of the robot
         return direction; // Move at the ball
     }
