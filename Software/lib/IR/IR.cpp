@@ -47,20 +47,22 @@ void IRSensors::read()
     }
 
     // Broken sensors
-    // value[8] = 0;
-    // value[10] = 0;
-    value[2] = 0;
+    // value[8] = 0; // USE THIS ON THE ROBOT WITH THE TEAL ARDUINO
+    // value[10] = 0; // USE THIS ON THE ROBOT WITH THE TEAL ARDUINO
+    value[2] = 0; // USE THIS ON THE ROBOT WITH THE BLUE ARDUIONO
 }
-
 
 void IRSensors::calculate_ball_data()
 {
     uint8_t max_val_location = 0; // Assumes that the front TSSP has the highest value
     for (uint8_t i = 0; i < IR_NUM; i++) {
+        // Serial.print(value[i]);
+        // Serial.print(" ");
         if (value[i] > value[max_val_location]) { // Checks if the current TSSP value is higher
             max_val_location = i; // Sets new location for highest TSSP value
         }
     }
+    // Serial.println();
 
     direction = 360.0f / (float)IR_NUM * (float)max_val_location;
     strength = value[max_val_location];

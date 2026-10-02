@@ -45,38 +45,38 @@ void loop()
     float heading = event.orientation.x;
     heading = heading > 180.0f ? heading - 360.0f : heading; // changes heading from 0 - 360 -> -180 - +180
     
-
-
     ir.update();
-
     avoidance.update();
 
     float direction;
 
-    if (avoidance.avoid() == 1000){
+    if (avoidance.get_direction() == -1.0f){
         direction = orbit(ir.get_direction(), ir.get_strength());
+        // Serial.println("No avoidance");
     } else {
-        direction = avoidance.avoid();
+        direction = avoidance.get_direction() + 180.0f;
+
+        if (direction > 360.0f) {
+            direction -= 360.0f;
+        }
+        // Serial.println("Yes avoidance");
     }
+    // Serial.println(direction);
 
 
-    Serial.print("IR VALUES - dir: "); Serial.print(ir.get_direction());
-    Serial.print("\tstr: "); Serial.println(ir.get_strength());
-
-    
+    // Serial.print("IR VALUES - dir: "); Serial.print(ir.get_direction());
+    // Serial.print("\tstr: "); Serial.println(ir.get_strength());
 
 
     float speed;
-    if (ir.get_strength() != 0.0f) {
+    if (ir.get_strength() != 0.0f || avoidance.get_direction() != -1.0f) {
         speed = MOVE_SPEED;
     } else {
         speed = 0.0f;
     }
 
-
     float correction = -rotationPID.update(heading, 0.0f);
     
-
     motors.move(direction, speed, correction);
 }
 
@@ -84,7 +84,7 @@ void loop()
 
 float orbit(float direction, float strength)
 {
-    if (direction <= 30.0f || direction >= 330.0f) { // If the ball is roughly in front of the robot
+    if ((direction <= 30.0f) || (direction >= 330.0f)) { // If the ball is roughly in front of the robot
         return direction; // Move at the ball
     }
     

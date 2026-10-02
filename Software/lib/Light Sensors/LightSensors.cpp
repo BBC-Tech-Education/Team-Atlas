@@ -15,35 +15,65 @@ void LightSensors::update()
 {
     read();
 
+    direction = -1.0f;
+
     for (uint8_t i = 0; i < LS_NUM; i++) {
-        Serial.print(value[i]);
-        Serial.print(" ");
+        if (on_white[(i + LS_NUM - 1) % LS_NUM] && on_white[(i + 1) % LS_NUM]) {
+            on_white[i] = true;
+        }
     }
-    Serial.println();
-}
 
-float LightSensors::avoid()
-{
-    float line_direction = direction();
+    uint8_t cluster_start[4] = {0};
+    uint8_t cluster_end[4] = {0};
+    uint8_t cluster_num = 0;
 
-    int avoidance_direction;
-    if (line_direction != 1000){ //Checks if the robot sees the line
-            if (line_direction != 0){ //If so, checks if the angle isn't in front
-                if (line_direction < 180){ //If so, checks if the line is to the right of the robot
-                    avoidance_direction = line_direction + 180; //If so, moves in the opposite direction of the line
-                }
-                if (line_direction >= 180){ //If so, checks if the line is to the left of the robot
-                    avoidance_direction = avoidance_direction - 180; //If so, moves in the opposite direction of the line
-                }
-            else {
-                avoidance_direction = 0; //If not, moves forward
+    bool in_cluster = false;
+
+    for (uint8_t i = 0; i < LS_NUM; i++) {
+        if (!in_cluster) {
+            if (on_white[i]) {
+                cluster_start[cluster_num] = i;
+                in_cluster = true;
+            }
+        } else {
+            if (!on_white[i]) {
+                cluster_end[cluster_num] = i - 1;
+                in_cluster = false;
+                cluster_num++;
             }
         }
     }
-    else {
-        avoidance_direction = 1000; //If not, doesn't move
+
+
+    if (on_white[LS_NUM - 1]) {
+        if (on_white[0]) {
+            cluster_start[0] = cluster_start[cluster_num];
+        } else {
+            cluster_end[cluster_num] = 15;
+            cluster_num++;
+        }
     }
-    return avoidance_direction;
+
+
+    if (cluster_num == 1) {
+        direction = mid_angle_between(cluster_start[0] * 360.0f / (float)LS_NUM, cluster_end[0] * 360.0f / (float)LS_NUM);
+    } else if (cluster_num == 2) {
+        float cluster1 = mid_angle_between(cluster_start[0] * 360.0f / (float)LS_NUM, cluster_end[0] * 360.0f / (float)LS_NUM);
+        float cluster2 = mid_angle_between(cluster_start[1] * 360.0f / (float)LS_NUM, cluster_end[1] * 360.0f / (float)LS_NUM);
+
+        float angle = angle_between(cluster1, cluster2);
+
+        if (angle > 180.0f) {
+            direction = mid_angle_between(cluster2, cluster1);
+        } else {
+            direction = mid_angle_between(cluster1, cluster2);
+        }
+    }
+}
+
+float LightSensors::get_direction()
+{
+    return direction;
 }
 
 
@@ -53,7 +83,11 @@ void LightSensors::read()
 {
     for (uint8_t i = 0; i < LS_NUM; i++) {
         value[i] = analogRead(pins[i]);
+        on_white[i] = value[i] > green[i];
     }
+    on_white[1] = 0; // USE THIS FOR THE 
+    on_white[5] = 0;
+    on_white[14] = 0;
 }
 
 void LightSensors::calibrate()
@@ -71,28 +105,31 @@ void LightSensors::calibrate()
     }
 }
 
-float LightSensors::direction()
+
+
+float LightSensors::float_mod(float x, float m)
 {
-    read();
-
-    int average_number = 0;
-    float average_sum = 0;
-
-    for (int i = 0; i < 16; i++){ 
-        if (value[i] > 0.2 * 1023){ //Checks if the light sensor is seeing white
-            average_number += 1; //If so, adds one to the average number
-            average_sum += 360/16 * i; //If so, adds the angle of the light sensor to the average sum
-        }
+    float r = fmod(x, m);
+    if (r < 0) {
+        return r + m;
+    } else {
+        return r;
     }
+}
 
-    float direction = 0; //Sets the line direction to 0
 
-    if (average_number == 0){ //Checks if zero light sensors saw the line
-        direction = 1000; //If so, sets the line direction to 1000
-    }
-    else {
-        direction = average_sum/average_number; //If not, finds where the average angle is for all the light sensors which see white
-    }
-    
-    return direction;
+float LightSensors::angle_between(float left, float right)
+{
+    return float_mod(right - left, 360.0f);
+}
+
+float LightSensors::smallest_angle_between(float left, float right)
+{
+    float angle = angle_between(left, right);
+    return fmin(angle, 360 - angle);
+}
+
+float LightSensors::mid_angle_between(float left, float right)
+{
+    return float_mod(left + angle_between(left, right) / 2.0f, 360.0f);
 }

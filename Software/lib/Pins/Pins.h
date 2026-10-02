@@ -19,7 +19,7 @@
 //IR sensor pins
 #define IR0 22
 #define IR1 23
-#define IR2 24
+#define IR2 24 
 #define IR3 25
 #define IR4 26
 #define IR5 27
