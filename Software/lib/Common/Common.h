@@ -9,4 +9,13 @@
 
 #define MOVE_SPEED 255.0f
 
+
+float float_mod(float x, float m);
+
+float angle_between(float left, float right);
+
+float smallest_angle_between(float left, float right);
+
+float mid_angle_between(float left, float right);
+
 #endif

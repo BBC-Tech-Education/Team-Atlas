@@ -3,6 +3,7 @@
 
 
 #include <Arduino.h>
+#include "Common.h"
 #include <Pins.h>
 
 
@@ -19,11 +20,6 @@ public:
 private:
     void read();
     void calibrate();
-
-    float float_mod(float x, float m);
-    float angle_between(float left, float right);
-    float smallest_angle_between(float left, float right);
-    float mid_angle_between(float left, float right);
 
     float direction = -1.0f;
 
