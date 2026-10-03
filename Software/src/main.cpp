@@ -98,8 +98,8 @@ float orbit(float direction, float strength)
     
 
     if (direction < 180.0f) { // Checks if the ball is to the right of the robot
-        return direction + 80.0f;
+        return direction + 1.5 * strength; //(50.0f + strength) ;
     } else {
-        return direction - 80.0f;
+        return direction - 1.5 * strength; //(50.0f + strength);
     }
 }
