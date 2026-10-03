@@ -61,7 +61,7 @@ void loop()
         }
         // Serial.println("Yes avoidance");
     }
-    // Serial.println(direction);
+    Serial.println(direction);
 
 
     // Serial.print("IR VALUES - dir: "); Serial.print(ir.get_direction());
@@ -84,8 +84,16 @@ void loop()
 
 float orbit(float direction, float strength)
 {
-    if ((direction <= 30.0f) || (direction >= 330.0f)) { // If the ball is roughly in front of the robot
-        return direction; // Move at the ball
+    if (direction == 0.0f) {
+        return direction;
+    }
+
+    if (direction == 30.0f) {
+        return direction + 20;
+    }
+
+    if (direction == 330.0f) {
+        return direction - 20;
     }
     
 

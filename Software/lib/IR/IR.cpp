@@ -47,9 +47,10 @@ void IRSensors::read()
     }
 
     // Broken sensors
-    // value[8] = 0; // USE THIS ON THE ROBOT WITH THE TEAL ARDUINO
-    // value[10] = 0; // USE THIS ON THE ROBOT WITH THE TEAL ARDUINO
-    value[2] = 0; // USE THIS ON THE ROBOT WITH THE BLUE ARDUIONO
+    value[8] = 0; // USE THIS ON THE ROBOT WITH THE TEAL ARDUINO
+    value[10] = 0; // USE THIS ON THE ROBOT WITH THE TEAL ARDUINO
+
+    // value[2] = 0; // USE THIS ON THE ROBOT WITH THE BLUE ARDUIONO
 }
 
 void IRSensors::calculate_ball_data()

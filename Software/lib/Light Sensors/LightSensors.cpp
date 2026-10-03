@@ -84,10 +84,15 @@ void LightSensors::read()
     for (uint8_t i = 0; i < LS_NUM; i++) {
         value[i] = analogRead(pins[i]);
         on_white[i] = value[i] > green[i];
+        // Serial.print(value[i]);
+        // Serial.print(" ");
     }
-    on_white[1] = 0; // USE THIS FOR THE 
-    on_white[5] = 0;
-    on_white[14] = 0;
+    // Serial.println();
+
+    /////////////// Use these on the robot with the blue arduino ///////////////
+    // on_white[1] = 0;
+    // on_white[5] = 0;
+    // on_white[14] = 0;    
 }
 
 void LightSensors::calibrate()
